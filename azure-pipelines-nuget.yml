@@ -42,11 +42,6 @@ steps:
     configuration: '$(buildConfiguration)'
     msbuildArchitecture: x64
 
-#- task: CmdLine@2
-#  displayName: 'Delete wrong version of nanoCLR.exe ;)'
-#  inputs:
-#    script: 'del $(System.DefaultWorkingDirectory)\packages\nanoFramework.TestFramework.1.0.170\lib\net48\nanoFramework.nanoCLR.exe'
-#
 - task: VSTest@2
   displayName: Run tests
   continueOnError: false
@@ -63,3 +58,13 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     runSettingsFile: '$(System.DefaultWorkingDirectory)\Tests\MakoIoT.Device.Utilities.ICalParser.Test\nano.runsettings'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'custom' 
+    arguments: 'pack MakoIoT.Device.Utilities.ICalParser.nuspec'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'custom'
+    arguments: 'push $(Build.ArtifactStagingDirectory)/**/*.nupkg -Source mako-iot'
