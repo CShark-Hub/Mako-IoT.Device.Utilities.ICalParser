@@ -52,4 +52,4 @@ steps:
   inputs:
     nuGetServiceConnections: 'CSharkGithubNuget2'
 
-- script: nuget push $(Build.ArtifactStagingDirectory)\..\**\MakoIoT.Device.Utilities.ICalParser*.nupkg -Source mako-iot -ApiKey AzureArtifacts
+- script: nuget push $(Build.ArtifactStagingDirectory)\..\**\MakoIoT.Device.Utilities.ICalParser*.nupkg -Source mako-iot
