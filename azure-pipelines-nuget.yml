@@ -1,0 +1,65 @@
+# .NET Desktop
+# Build and run tests for .NET Desktop or Windows classic desktop solutions.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
+
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-2022'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- checkout: self
+
+- task: InstallnFBuildComponents@1
+  displayName: Install nanoFramework MSBuild components
+  env:
+    GITHUB_TOKEN: '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'
+
+- task: NuGetToolInstaller@1
+  displayName: Install NuGet
+
+- task: NuGetCommand@2
+  displayName: Restore NuGet packages
+  inputs:
+    command: 'restore'
+    restoreSolution: '$(solution)'
+    feedsToUse: 'config'
+    nugetConfigPath: 'nuget.config'
+    externalFeedCredentials: 'CSharkGithubNuget'
+
+- task: VSBuild@1
+  displayName: Build solution
+  inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+    msbuildArchitecture: x64
+
+#- task: CmdLine@2
+#  displayName: 'Delete wrong version of nanoCLR.exe ;)'
+#  inputs:
+#    script: 'del $(System.DefaultWorkingDirectory)\packages\nanoFramework.TestFramework.1.0.170\lib\net48\nanoFramework.nanoCLR.exe'
+#
+- task: VSTest@2
+  displayName: Run tests
+  continueOnError: false
+  inputs:
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      $(System.DefaultWorkingDirectory)\Tests\**\NFUnitTest.dll
+      $(System.DefaultWorkingDirectory)\Tests\**\*Test*.dll
+      !**\DeviceTest.dll
+      !**\obj\**
+      !**\TestAdapter\**
+      !**\NFUnitTest_DummyAdapter\**
+      !**\nanoFramework.TestFramework\**    
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+    runSettingsFile: '$(System.DefaultWorkingDirectory)\Tests\MakoIoT.Device.Utilities.ICalParser.Test\nano.runsettings'

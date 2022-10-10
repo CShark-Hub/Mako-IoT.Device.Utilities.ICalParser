@@ -1,16 +1,15 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CSharp.TestApplication")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("MakoIoT.Device.Utilities.ICalParser")]
+[assembly: AssemblyDescription("Minimal iCalendar parser (VEVENT only) for .NET nanoFramework C# projects")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CSharp.TestApplication")]
-[assembly: AssemblyCopyright("Copyright © HP Inc. 2022")]
+[assembly: AssemblyCompany("CSHARK")]
+[assembly: AssemblyProduct("MAKO-IoT")]
+[assembly: AssemblyCopyright("Copyright © CSHARK 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
