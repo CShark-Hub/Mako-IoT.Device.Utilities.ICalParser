@@ -52,8 +52,4 @@ steps:
   inputs:
     nuGetServiceConnections: 'CSharkGithubNuget2'
 
-- task: NuGetCommand@2
-  displayName: Nuget Push
-  inputs:
-    command: 'custom'
-    arguments: 'push $(Build.ArtifactStagingDirectory)\..\**\*.nupkg -Source mako-iot -ApiKey AzureArtifacts'
+- script: nuget push $(Build.ArtifactStagingDirectory)\..\**\*.nupkg -Source mako-iot -ApiKey AzureArtifacts
