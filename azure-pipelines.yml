@@ -53,8 +53,8 @@ steps:
   inputs:
     testSelector: 'testAssemblies'
     testAssemblyVer2: |
-      $(System.DefaultWorkingDirectory)\Tests\SoftwareTests\**\NFUnitTest.dll
-      $(System.DefaultWorkingDirectory)\Tests\SoftwareTests\**\*Test*.dll
+      $(System.DefaultWorkingDirectory)\Tests\**\NFUnitTest.dll
+      $(System.DefaultWorkingDirectory)\Tests\**\*Test*.dll
       !**\DeviceTest.dll
       !**\obj\**
       !**\TestAdapter\**
@@ -62,4 +62,4 @@ steps:
       !**\nanoFramework.TestFramework\**    
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-    runSettingsFile: '$(System.DefaultWorkingDirectory)\Tests\SoftwareTests\MakoIoT.Device.Test\nano.runsettings'
+    runSettingsFile: '$(System.DefaultWorkingDirectory)\Tests\MakoIoT.Device.Utilities.ICalParser.Test\nano.runsettings'
