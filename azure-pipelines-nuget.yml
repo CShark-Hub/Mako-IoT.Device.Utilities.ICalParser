@@ -67,4 +67,4 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'custom'
-    arguments: 'push $(Build.ArtifactStagingDirectory)/**/*.nupkg -Source mako-iot'
+    arguments: 'push $(Build.ArtifactStagingDirectory)\*.nupkg -Source mako-iot'
