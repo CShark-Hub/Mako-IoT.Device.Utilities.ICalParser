@@ -43,11 +43,13 @@ steps:
     msbuildArchitecture: x64
 
 - task: NuGetCommand@2
+  displayName: Nuget Pack
   inputs:
     command: 'custom' 
     arguments: 'pack MakoIoT.Device.Utilities.ICalParser.nuspec'
 
 - task: NuGetCommand@2
+  displayName: Nuget Push
   inputs:
     command: 'custom'
-    arguments: 'push $(Build.ArtifactStagingDirectory)\**\*.nupkg -Source mako-iot'
+    arguments: 'push $(Build.ArtifactStagingDirectory)\..\**\*.nupkg -Source mako-iot'
