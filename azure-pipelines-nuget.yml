@@ -42,23 +42,6 @@ steps:
     configuration: '$(buildConfiguration)'
     msbuildArchitecture: x64
 
-- task: VSTest@2
-  displayName: Run tests
-  continueOnError: false
-  inputs:
-    testSelector: 'testAssemblies'
-    testAssemblyVer2: |
-      $(System.DefaultWorkingDirectory)\Tests\**\NFUnitTest.dll
-      $(System.DefaultWorkingDirectory)\Tests\**\*Test*.dll
-      !**\DeviceTest.dll
-      !**\obj\**
-      !**\TestAdapter\**
-      !**\NFUnitTest_DummyAdapter\**
-      !**\nanoFramework.TestFramework\**    
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-    runSettingsFile: '$(System.DefaultWorkingDirectory)\Tests\MakoIoT.Device.Utilities.ICalParser.Test\nano.runsettings'
-
 - task: NuGetCommand@2
   inputs:
     command: 'custom' 
