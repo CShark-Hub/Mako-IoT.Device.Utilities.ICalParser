@@ -2,10 +2,9 @@ pool:
   vmImage: 'windows-2022'
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-  packageName: 'MakoIoT.Device.Utilities.ICalParser'
+- group: mako-iot-github
+- name: packageName
+  value: 'MakoIoT.Device.Utilities.ICalParser'
 
 resources:
   repositories:
