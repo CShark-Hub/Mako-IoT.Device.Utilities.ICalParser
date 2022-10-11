@@ -3,9 +3,6 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 
-trigger:
-- main
-
 pool:
   vmImage: 'windows-2022'
 
@@ -16,6 +13,7 @@ variables:
 
 steps:
 - checkout: self
+  fetchDepth: 0
 
 - task: InstallnFBuildComponents@1
   displayName: Install nanoFramework MSBuild components
@@ -42,24 +40,10 @@ steps:
     configuration: '$(buildConfiguration)'
     msbuildArchitecture: x64
 
-#- task: CmdLine@2
-#  displayName: 'Delete wrong version of nanoCLR.exe ;)'
-#  inputs:
-#    script: 'del $(System.DefaultWorkingDirectory)\packages\nanoFramework.TestFramework.1.0.170\lib\net48\nanoFramework.nanoCLR.exe'
-#
-- task: VSTest@2
-  displayName: Run tests
-  continueOnError: false
+- task: NuGetCommand@2
+  displayName: Nuget Pack
   inputs:
-    testSelector: 'testAssemblies'
-    testAssemblyVer2: |
-      $(System.DefaultWorkingDirectory)\Tests\**\NFUnitTest.dll
-      $(System.DefaultWorkingDirectory)\Tests\**\*Test*.dll
-      !**\DeviceTest.dll
-      !**\obj\**
-      !**\TestAdapter\**
-      !**\NFUnitTest_DummyAdapter\**
-      !**\nanoFramework.TestFramework\**    
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-    runSettingsFile: '$(System.DefaultWorkingDirectory)\Tests\MakoIoT.Device.Utilities.ICalParser.Test\nano.runsettings'
+    command: 'custom' 
+    arguments: 'pack MakoIoT.Device.Utilities.ICalParser.nuspec -Version $(BuildVersion)'
+
+- script: nuget push $(Build.ArtifactStagingDirectory)\..\**\MakoIoT.Device.Utilities.ICalParser*.nupkg -Source mako-iot -ApiKey $(github_nuget_token)
