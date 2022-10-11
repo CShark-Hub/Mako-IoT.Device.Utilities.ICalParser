@@ -23,6 +23,13 @@ steps:
 - task: NuGetToolInstaller@1
   displayName: Install NuGet
 
+- task: DotNetCoreCLI@2  
+  displayName: Install NBGV tool
+  inputs:
+    command: custom
+    custom: tool
+    arguments: install --tool-path . nbgv
+
 - task: NuGetCommand@2
   displayName: Restore NuGet packages
   inputs:
@@ -31,6 +38,9 @@ steps:
     feedsToUse: 'config'
     nugetConfigPath: 'nuget.config'
     externalFeedCredentials: 'CSharkGithubNuget'
+
+- script: nbgv cloud -a -c
+  displayName: Set Version
 
 - task: VSBuild@1
   displayName: Build solution
@@ -44,6 +54,7 @@ steps:
   displayName: Nuget Pack
   inputs:
     command: 'custom' 
-    arguments: 'pack MakoIoT.Device.Utilities.ICalParser.nuspec -Version $(BuildVersion)'
+    arguments: 'pack MakoIoT.Device.Utilities.ICalParser.nuspec -Version $(GitBuildVersion)'
 
 - script: nuget push $(Build.ArtifactStagingDirectory)\..\**\MakoIoT.Device.Utilities.ICalParser*.nupkg -Source mako-iot -ApiKey $(github_nuget_token)
+  displayName: nuget push
