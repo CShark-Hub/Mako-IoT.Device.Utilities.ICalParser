@@ -28,7 +28,7 @@ steps:
   inputs:
     command: custom
     custom: tool
-    arguments: install --tool-path . nbgv
+    arguments: install --tool-path . nbgv --ignore-failed-sources
 
 - task: NuGetCommand@2
   displayName: Restore NuGet packages
