@@ -52,6 +52,9 @@ steps:
     nugetConfigPath: 'nuget.config'
     externalFeedCredentials: 'CSharkGithubNuget'
 
+- script: nbgv cloud -a -c
+  displayName: Set Version
+  
 - task: VSBuild@1
   displayName: Build solution
   inputs:
