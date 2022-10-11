@@ -16,10 +16,9 @@ pool:
   vmImage: 'windows-2022'
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-  runSettingsFile: 'Tests\MakoIoT.Device.Utilities.ICalParser.Test\nano.runsettings'
+- group: mako-iot-github
+- name: runSettingsFile
+  value: 'Tests\MakoIoT.Device.Utilities.ICalParser.Test\nano.runsettings'
 
 resources:
   repositories:
