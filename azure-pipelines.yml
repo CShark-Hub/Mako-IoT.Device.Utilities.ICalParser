@@ -29,4 +29,4 @@ resources:
       endpoint: CShark-Hub
 
 steps:
-- template: azure-pipelines-templates/azure-pipeline-ci-template.yml@templates
+- template: azure-pipelines-templates/azure-pipelines-ci-template.yml@templates
