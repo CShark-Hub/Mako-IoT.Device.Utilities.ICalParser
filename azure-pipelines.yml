@@ -27,6 +27,7 @@ variables:
 
 steps:
 - checkout: self
+  fetchDepth: 0
 
 - task: InstallnFBuildComponents@1
   displayName: Install nanoFramework MSBuild components
@@ -36,12 +37,12 @@ steps:
 - task: NuGetToolInstaller@1
   displayName: Install NuGet
 
-- task: DotNetCoreCLI@2  
-  displayName: Install NBGV tool
-  inputs:
-    command: custom
-    custom: tool
-    arguments: install --tool-path . nbgv --ignore-failed-sources
+#- task: DotNetCoreCLI@2  
+#  displayName: Install NBGV tool
+#  inputs:
+#    command: custom
+#    custom: tool
+#    arguments: install --tool-path . nbgv --ignore-failed-sources
 
 - task: NuGetCommand@2
   displayName: Restore NuGet packages
@@ -52,8 +53,8 @@ steps:
     nugetConfigPath: 'nuget.config'
     externalFeedCredentials: 'CSharkGithubNuget'
 
-- script: nbgv cloud -a -c
-  displayName: Set Version
+#- script: nbgv cloud -a -c
+#  displayName: Set Version
   
 - task: VSBuild@1
   displayName: Build solution
